@@ -3,25 +3,27 @@ import axios from "axios";
 
 const Customer = () => {
   const [reviews, setReviews] = useState([]); // State to store reviews
+  const [page, setPage] = useState(1); // Track current page
 
   // Function to fetch reviews from API
   const fetchReviews = () => {
     axios.get("https://admin.tomedes.com/api/v1/get-reviews?page=1")
       .then(response => {
-        console.log("Single Review Object:", response.data.data[0]); // Debugging
-        setReviews(response.data.data.slice(0, 2)); // Sirf 2 reviews dikhane ke liye
+        let allReviews = response.data.data;
+        let shuffled = allReviews.sort(() => 0.5 - Math.random()); // Reviews shuffle
+        setReviews(shuffled.slice(0, 2)); // Random 2 reviews show karna
       })
-      .catch(error => {
-        console.error("Error fetching reviews:", error);
-      });
+      .catch(error => console.error("Error fetching reviews:", error));
   };
 
   useEffect(() => {
     fetchReviews(); // Pehli baar API call karna
-    const interval = setInterval(fetchReviews, 10000); // Har 10 sec baad refresh
-
+    const interval = setInterval(() => {
+        setPage(prevPage => prevPage + 1); // Har 10 sec me next page load karo
+      }, 10000);
+  
     return () => clearInterval(interval); // Cleanup function
-  }, []);
+  }, [page]);
 
   return (
     <div className="container my-5">
