@@ -1,0 +1,25 @@
+/* Default Card Style */
+.card {
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+  }
+  
+  /* Hover Effect: Background Blue & Text White */
+  .card:hover {
+    background-color: #007bff; /* Primary Blue */
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Card title and paragraph white on hover */
+  .card:hover .card-title {
+    color: white !important;
+  }
+  
+  /* Image slight transparency on hover */
+  .card:hover .card-img-top {
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
